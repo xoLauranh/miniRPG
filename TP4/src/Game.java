@@ -102,7 +102,7 @@ public class Game {
     public void createEnemy(int nbjoueur) {
 
 
-        for (int a = 0; a <= nbjoueur; a++) {
+        for (int a = 0; a < nbjoueur; a++) {
 
             Enemy enemy = new Enemy();
             enemyList.add(enemy);
@@ -236,8 +236,8 @@ public class Game {
                 "2 • améliorer la resistance aux attaques;\n" +
                 "3 • augmenter l’efficacité de la potion et de la nourriture ;\n" +
                 "4 • ajouter des potions et de la nourriture ;\n" +
-                "5 • ajouter des flèches (pour le Hunter)" +
-                "6 • améliorer l’efficacité du soin des healer \n");
+                "5 • ajouter des flèches (pour le Hunter)\n" +
+                "6 • améliorer l’efficacité du soin des healer");
         Scanner scanner = new Scanner(System.in);
         int choixRecompense = scanner.nextInt();
 
@@ -296,7 +296,7 @@ public class Game {
     public void combat()
     {
 
-        while (Joueur.getPv() > 0 || attaquant.getPv() > 0) {
+        while (!alldead(heroList) && enemyList.size()>0) {
             //attaquant = héro, joueur = ennemie
 
             if (Joueur.getTypeCombattant() == "enemy")
@@ -343,7 +343,7 @@ public class Game {
 
                     System.out.println("\nVoulez vous : \n1.Attaquer  \n2.Prendre une potion/vous soigner");
                     int attackOuDefense = 0;
-                    while (attackOuDefense !=1 || attackOuDefense !=2)
+                    while (attackOuDefense !=1 && attackOuDefense !=2)
                         attackOuDefense = scanner3.nextInt();
                     switch (attackOuDefense)
                     {
@@ -352,12 +352,16 @@ public class Game {
                             int n = 0;
                             for (Enemy enemy : enemyList) {
                                 n++;
-                                System.out.println(d + "." + enemy.getName() + "(ennemi, " + enemy.getPv() + "Pv)");
+                                System.out.println(n + "." + enemy.getName() + "(ennemi, " + enemy.getPv() + "Pv)");
                             }
                             int ennemiChoisi = 0;
                             while (!(ennemiChoisi>0 && ennemiChoisi<=enemyList.size()))
                                 ennemiChoisi=scanner3.nextInt();
                             attaquant.attack(enemyList.get(ennemiChoisi-1));
+                            if (Joueur.getPv() <= 0)
+                            {
+                                enemyList.remove(Joueur);
+                            }
                             break;
                         }
                         case 2 : {
