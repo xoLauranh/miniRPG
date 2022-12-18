@@ -30,9 +30,13 @@ public class Healer extends Spellcaster{
 
     @Override
     protected void defend() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Voulez-vous :\n1.Manger\n2.Prendre une potion\n3.Vous soigner");
     int choix = 0;
     while (!(choix == 1 || choix == 2 || choix ==3))
+
+        choix = scanner.nextInt();
+
         switch (choix) {
             case 1: {
                 if (this.getNourriture().quantite > 0)

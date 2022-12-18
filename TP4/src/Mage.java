@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Mage extends Spellcaster
 {
     public Mage(String name)
@@ -29,9 +31,11 @@ public class Mage extends Spellcaster
 
     @Override
     protected void defend() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Voulez-vous :\n1.Manger\n2.Prendre une potion");
         int choix = 0;
         while (!(choix == 1 || choix == 2))
+            choix = scanner.nextInt();
             switch (choix) {
                 case 1: {
                     if (this.getNourriture().quantite > 0)
